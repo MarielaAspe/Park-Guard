@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "994508247153",
+    "firebase_url": "https://safepark-iot-security-system-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "safepark-iot-security-system",
+    "storage_bucket": "safepark-iot-security-system.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:994508247153:android:ccb09d1bbf963abadd4bd0",
+        "android_client_info": {
+          "package_name": "IoT.SafePark"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoR3d5ZJr9VNfuMUMpW4XrgjJFA6ahMvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

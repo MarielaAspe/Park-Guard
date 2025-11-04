@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/snapshotFragment"
+        android:icon="@drawable/ic_camera"
+        android:title="Snapshot" />
+    <item
+        android:id="@+id/dashboardFragment"
+        android:icon="@drawable/ic_home"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/logsFragment"
+        android:icon="@drawable/ic_menu"
+        android:title="Logs" />
+</menu>
+

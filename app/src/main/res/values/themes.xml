@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ✅ Main App Theme -->
+    <style name="Theme.ParkGuard" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Core Colors -->
+        <item name="colorPrimary">@color/headerBlue</item>
+        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorSecondary">@color/teal_200</item>
+
+        <!-- System Bars -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor">@color/white</item>
+
+        <!-- Default Background -->
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+
+</resources>

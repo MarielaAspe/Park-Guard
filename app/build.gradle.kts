@@ -2,15 +2,14 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.labactivity.safepark_iot"
+    namespace = "com.labactivity.parkguard"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "IoT.SafePark"
+        applicationId = "com.labactivity.parkguard"
         minSdk = 26
         targetSdk = 36
         versionCode = 1
@@ -20,7 +19,6 @@ android {
     }
 
     buildTypes {
-
         release {
             isMinifyEnabled = false
             proguardFiles(
@@ -38,16 +36,11 @@ android {
     }
     buildFeatures {
         compose = true
-        viewBinding = true
-
     }
 }
 
 dependencies {
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
+
     implementation("androidx.navigation:navigation-compose:2.8.3")
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.core.ktx)

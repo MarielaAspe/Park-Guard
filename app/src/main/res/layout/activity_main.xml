@@ -25,6 +25,7 @@
             android:textStyle="bold" />
     </LinearLayout>
 
+    <!-- Fragment container -->
     <FrameLayout
         android:id="@+id/nav_host_fragment"
         android:layout_width="match_parent"
@@ -38,7 +39,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu"
-        android:background="@color/white"
         app:itemIconTint="@color/selector_nav"
         app:itemTextColor="@color/selector_nav"
         app:labelVisibilityMode="selected" />

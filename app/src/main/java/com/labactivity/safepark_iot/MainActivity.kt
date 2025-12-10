@@ -20,9 +20,9 @@ class MainActivity : AppCompatActivity() {
 
         try {
             FirebaseApp.initializeApp(this)
-            Log.d("Firebase", "✅ FirebaseApp initialized successfully in MainActivity.")
+            Log.d("Firebase", "FirebaseApp initialized successfully in MainActivity.")
         } catch (e: Exception) {
-            Log.e("Firebase", "❌ FATAL: Failed to initialize FirebaseApp. Check google-services.json.", e)
+            Log.e("Firebase", "Failed to initialize FirebaseApp. Check google-services.json.", e)
         }
 
         headerTitle = findViewById(R.id.header_title)

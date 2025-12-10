@@ -10,5 +10,5 @@ data class LogEntry(
 
     val videoUrl: String? = null
 
-    // val size: Int? = null
+
 )

@@ -40,7 +40,6 @@ class LogAdapter(private val logList: MutableList<LogEntry>) :
             holder.time.text = timeFormat.format(Date(ms))
         }
 
-        // --- 2. Set Location/Event Description ---
         holder.location.text = when (currentItem.type?.lowercase()) {
             "motion" -> "Motion Alert" // Based on ESP32 code's log
             "arm" -> "System Armed"
@@ -48,19 +47,16 @@ class LogAdapter(private val logList: MutableList<LogEntry>) :
             else -> "System Event"
         }
 
-        // --- 3. Handle Video Icon Visibility/Action (Future feature) ---
-        // For now, we'll assume the icon is visible based on the XML but won't do anything
+
         holder.videoIcon.visibility = View.VISIBLE
 
         holder.videoIcon.setOnClickListener {
-            // Future feature: Launch a video player or YouTube link here
-            // Toast.makeText(holder.itemView.context, "Video feature coming soon!", Toast.LENGTH_SHORT).show()
+
         }
     }
 
     override fun getItemCount() = logList.size
 
-    // Function to update the data list
     fun updateData(newLogList: List<LogEntry>) {
         logList.clear()
         logList.addAll(newLogList)

@@ -33,27 +33,22 @@ class SnapshotAdapter(private val snapshotList: MutableList<SnapshotEntry>) :
 
         holder.alertType.text = currentItem.type ?: "Unknown Event"
 
-        // --- Format Timestamp ---
         currentItem.timestamp?.toLongOrNull()?.let { ms ->
-            // Convert millis since 1970 to a readable date format
             val formatter = SimpleDateFormat("h:mm a, MMM dd, yyyy", Locale.getDefault())
             holder.timestamp.text = formatter.format(Date(ms))
         }
 
-        // --- Set Text Color based on event type ---
         val colorInt = when (currentItem.type?.lowercase()) {
-            "motion intrusion" -> Color.parseColor("#FF4500") // Orange/Red for Alert
-            "cleared" -> Color.parseColor("#2ECC71") // Green for Cleared/Normal
-            else -> Color.parseColor("#666666") // Default gray
+            "motion intrusion" -> Color.parseColor("#FF4500")
+            "cleared" -> Color.parseColor("#2ECC71")
+            else -> Color.parseColor("#666666")
         }
         holder.alertType.setTextColor(colorInt)
 
         currentItem.imageUrl?.let { url ->
             Glide.with(context)
                 .load(url)
-                // Fallback and loading indicators (you need to have these drawables)
-                // .placeholder(R.drawable.placeholder_image)
-                // .error(R.drawable.error_image)
+
                 .into(holder.snapshotImage)
         }
     }

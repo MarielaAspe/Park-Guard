@@ -12,22 +12,18 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.core.content.ContextCompat
-import com.labactivity.safepark_iot.R
-import com.labactivity.safepark_iot.viewmodel.SystemViewModel // Assuming SystemViewModel path
+import com.labactivity.safepark_iot.viewmodel.SystemViewModel
 
 class DashboardFragment : Fragment() {
 
-    // Get the shared ViewModel instance
     private val viewModel: SystemViewModel by activityViewModels()
 
-    // Flag to prevent observer from triggering command sends on initial load
     private var isUpdatingUI = false
 
-    // --- References for the new single status CardView components (IDs from the updated XML) ---
-    private var mainStatusText: TextView? = null // ID: main_status_text
-    private var statusIcon: ImageView? = null     // ID: status_icon
-    private var indicatorBar: View? = null        // ID: status_indicator_bar
-    private var statusLabel: TextView? = null     // ID: statusIndicatorLabel
+    private var mainStatusText: TextView? = null
+    private var statusIcon: ImageView? = null
+    private var indicatorBar: View? = null
+    private var statusLabel: TextView? = null
 
 
     override fun onCreateView(
@@ -44,33 +40,27 @@ class DashboardFragment : Fragment() {
         val btnRaiseGate = view.findViewById<LinearLayout>(R.id.btnRaiseGate)
         val btnLowerGate = view.findViewById<LinearLayout>(R.id.btnLowerGate)
 
-        // 1. Initialize New Status Card References
-        // NOTE: Ensure the status CardView is included in R.layout.fragment_dashboard using <include> or is a part of the layout.
         mainStatusText = view.findViewById(R.id.main_status_text)
         statusIcon = view.findViewById(R.id.status_icon)
         indicatorBar = view.findViewById(R.id.status_indicator_bar)
         statusLabel = view.findViewById(R.id.statusIndicatorLabel)
 
 
-        // 2. Set up Observers to update UI when Firebase data changes
         viewModel.systemStatus.observe(viewLifecycleOwner) { status ->
             isUpdatingUI = true
 
-            // Update the main Alarm Switch state
             switchAlarm?.isChecked = status.armed
 
-            // Update the single status CardView based on priority
             updateCombinedStatusCard(
                 isArmed = status.armed,
                 isMotion = status.motion,
-                isGateOpen = status.gate, // Assuming 'true' means OPEN/Violation
+                isGateOpen = status.gate,
                 isOnline = status.online
             )
 
             isUpdatingUI = false
         }
 
-        // --- 3. Switch Listener: Sends ARM/DISARM command to Firebase ---
         switchAlarm?.setOnCheckedChangeListener { _, isChecked ->
             if (isUpdatingUI) return@setOnCheckedChangeListener
 
@@ -83,7 +73,6 @@ class DashboardFragment : Fragment() {
             }
         }
 
-        // --- 4. Button Listeners: Use ViewModel functions ---
         btnActivate?.setOnClickListener {
             viewModel.sendCommand("arm")
             Toast.makeText(requireContext(), "Sending ARM Command...", Toast.LENGTH_SHORT).show()
@@ -107,10 +96,6 @@ class DashboardFragment : Fragment() {
         return view
     }
 
-    /**
-     * Updates the combined status CardView based on system priority.
-     * Priority: MOTION ALERT > ARMED > GATE OPEN > OFFLINE > DISARMED (SAFE)
-     */
     private fun updateCombinedStatusCard(
         isArmed: Boolean,
         isMotion: Boolean,

@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".SignupActivity">
 
     <ImageView
         android:id="@+id/logo"
@@ -35,7 +35,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Sign Up"
             android:textAlignment="center"
             android:textSize="20sp"
             android:textColor="@color/gray"
@@ -65,16 +65,16 @@
             android:inputType="textPassword"
             android:layout_marginBottom="20dp"/>
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
+            android:text="Sign up"
             android:layout_marginBottom="10dp"/>
         <TextView
-            android:id="@+id/btnSignUpHere"
+            android:id="@+id/btnLoginHere"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up Here"
+            android:text="Login Here"
             android:textSize="15sp"
             android:textAlignment="center"/>
 

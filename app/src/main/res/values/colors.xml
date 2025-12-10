@@ -11,8 +11,4 @@
     <color name="headerBlue">#118CEA</color>
     <color name="green">#10C671</color>
     <color name="orange">#FFA629</color>
-    <color name="default_blue">#007AFF</color>
-    <color name="alert_red">#FF3B30</color>
-    <color name="success_green">#34C759</color>
-    <color name="warning_orange">#FF9500</color>
 </resources>

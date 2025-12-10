@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="IoT.SafePark" />
-                  <option name="mobileSdkAppId" value="1:994508247153:android:ccb09d1bbf963abadd4bd0" />
-                  <option name="projectId" value="safepark-iot-security-system" />
-                  <option name="projectNumber" value="994508247153" />
+                  <option name="appId" value="PLACEHOLDER" />
+                  <option name="mobileSdkAppId" value="" />
+                  <option name="projectId" value="" />
+                  <option name="projectNumber" value="" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

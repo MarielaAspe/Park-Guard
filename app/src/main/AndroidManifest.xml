@@ -11,9 +11,10 @@
         android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ParkGuard">
-
+        <activity
+            android:name="com.labactivity.safepark_iot.SignupActivity"
+            android:exported="false" />
         <activity android:name=".MainActivity" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true"
@@ -21,6 +22,7 @@
             android:theme="@style/Theme.ParkGuard">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

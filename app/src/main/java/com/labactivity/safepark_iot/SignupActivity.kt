@@ -1,5 +1,4 @@
 package com.labactivity.safepark_iot
-
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
@@ -12,63 +11,61 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 
-class LoginActivity : AppCompatActivity() {
-
+class SignupActivity : AppCompatActivity() {
     private lateinit var email : EditText
     private lateinit var password : EditText
-    private lateinit var loginBtn : Button
-    private lateinit var signupHere : TextView
+    private lateinit var signupBtn : Button
+    private lateinit var loginHere : TextView
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_signup)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        password = findViewById(R.id.etPassword)
-        email = findViewById(R.id.etEmail)
-        loginBtn = findViewById(R.id.btnLogin)
-        signupHere = findViewById(R.id.btnSignUpHere)
+        password = findViewById(R.id.editTxtPassword)
+        email = findViewById(R.id.editTxtEmail)
+        signupBtn = findViewById(R.id.btnSignUp)
+        loginHere = findViewById(R.id.btnLoginHere)
         auth = FirebaseAuth.getInstance()
 
-        signupHere.setOnClickListener{
-            val intent = Intent(this, SignupActivity::class.java)
+        loginHere.setOnClickListener{
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
-        loginBtn.setOnClickListener{
-            performLogin()
+        signupBtn.setOnClickListener{
+            performSignUp()
         }
 
     }
-    private fun performLogin() {
+    private fun performSignUp() {
         val inputEmail = email.text.toString()
         val inputPassword = password.text.toString()
 
         if (inputEmail.isEmpty() || inputPassword.isEmpty()) {
-            Toast.makeText(this, "Please enter your email and password.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please fill in all fields.", Toast.LENGTH_SHORT).show()
             return
         }
 
-        auth.signInWithEmailAndPassword(inputEmail, inputPassword)
+        auth.createUserWithEmailAndPassword(inputEmail, inputPassword)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val user = auth.currentUser
-                    Toast.makeText(this, "Welcome back, ${user?.email}!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Registration successful!", Toast.LENGTH_SHORT).show()
 
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()
 
                 } else {
+
                     Toast.makeText(
                         this,
-                        "Login failed: ${task.exception?.message}",
+                        "Registration failed: ${task.exception?.message}",
                         Toast.LENGTH_LONG
                     ).show()
                 }

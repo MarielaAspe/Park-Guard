@@ -45,6 +45,24 @@ class LoginActivity : AppCompatActivity() {
         }
 
     }
+
+    public override fun onStart() {
+        super.onStart()
+        // Check if user is signed in (non-null) and update UI accordingly.
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            // User is already logged in, redirect to MainActivity
+            updateUI()
+        }
+    }
+
+    private fun updateUI() {
+        val intent = Intent(this, MainActivity::class.java)
+        // Clear the back stack so the user can't press "Back" to return to Login
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        startActivity(intent)
+        finish()
+    }
     private fun performLogin() {
         val inputEmail = email.text.toString()
         val inputPassword = password.text.toString()

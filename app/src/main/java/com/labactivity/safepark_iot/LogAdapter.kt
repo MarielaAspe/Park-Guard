@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+// Note: We rely on LogEntry to handle all formatting, so no extra date imports are needed here.
 
+/**
+ * Adapter for the log list, now compatible with LogEntry(location, timestamp).
+ */
 class LogAdapter(private val logList: MutableList<LogEntry>) :
     RecyclerView.Adapter<LogAdapter.LogViewHolder>() {
 
@@ -29,29 +30,24 @@ class LogAdapter(private val logList: MutableList<LogEntry>) :
     override fun onBindViewHolder(holder: LogViewHolder, position: Int) {
         val currentItem = logList[position]
 
-        // --- 1. Format Timestamp to Date and Time ---
-        currentItem.timestamp?.toLongOrNull()?.let { ms ->
-            // Date format: 10-2-2025
-            val dateFormat = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            // Time format: 10:30PM
-            val timeFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
-
-            holder.date.text = dateFormat.format(Date(ms))
-            holder.time.text = timeFormat.format(Date(ms))
-        }
-
-        holder.location.text = when (currentItem.type?.lowercase()) {
-            "motion" -> "Motion Alert" // Based on ESP32 code's log
-            "arm" -> "System Armed"
-            "disarm" -> "System Disarmed"
-            else -> "System Event"
-        }
+        // --- 1. Set the Location Text (Using only the 'location' field) ---
+        // Since 'status' is removed, the 'location' field holds the main event description/zone.
+        holder.location.text = currentItem.location ?: "Unknown Event/Zone"
 
 
+        // --- 2. Format and Set Date and Time using LogEntry Helpers ---
+        // Relies on getFormattedDate() and getFormattedTime() added in the LogEntry class above.
+        holder.date.text = currentItem.getFormattedDate()
+        holder.time.text = currentItem.getFormattedTime()
+
+
+        // --- 3. Set up Video Icon ---
+        // Since we have no 'status' to filter by, we default to showing the icon
+        // or you can set a default behavior based on your app's requirements.
         holder.videoIcon.visibility = View.VISIBLE
 
         holder.videoIcon.setOnClickListener {
-
+            // TODO: Implement navigation or action to view the related video
         }
     }
 

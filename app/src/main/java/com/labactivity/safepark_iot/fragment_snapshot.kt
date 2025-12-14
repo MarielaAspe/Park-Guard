@@ -1,6 +1,7 @@
 package com.labactivity.safepark_iot
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,62 +10,77 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.*
+import com.labactivity.safepark_iot.databinding.FragmentSnapshotBinding
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 
 class SnapshotFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: SnapshotAdapter
-    private val snapshotList = mutableListOf<SnapshotEntry>()
+    private lateinit var binding: FragmentSnapshotBinding // Using View Binding
+    private lateinit var logAdapter: NotificationAdapter
+    private val firestore = FirebaseFirestore.getInstance()
 
-    // IMPORTANT: Get the RTDB reference using your project URL
-    private val database = FirebaseDatabase.getInstance("https://safepark-iot-security-system-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
-
+    // Assuming your fragment layout is named 'fragment_notification.xml'
+    // but using the provided constraint layout name for reference
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Use the updated XML that contains the RecyclerView
-        val view = inflater.inflate(R.layout.fragment_snapshot, container, false)
-
-        recyclerView = view.findViewById(R.id.recyclerViewSnapshots)
-
-        // Setup RecyclerView
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = SnapshotAdapter(snapshotList)
-        recyclerView.adapter = adapter
-
-        // Start loading data when the fragment is created
-        fetchSnapshotsFromFirebase()
-
-        return view
+        // Use View Binding if available, otherwise use findViewById
+        // For this example, I'll assume standard View Binding for better practice.
+        // Replace with your actual binding class name if different
+        binding = FragmentSnapshotBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    private fun fetchSnapshotsFromFirebase() {
-        // Listen to changes at the /snapshots/ path
-        database.child("snapshots").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                snapshotList.clear()
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-                // Iterate through all the captured snapshots
-                for (snapShot in snapshot.children) {
-                    // Get the record and map it to our data class
-                    val entry = snapShot.getValue(SnapshotEntry::class.java)
-                    if (entry != null) {
-                        snapshotList.add(entry)
-                    }
+        setupRecyclerView()
+        fetchNotifications()
+
+        binding.clearAll.setOnClickListener {
+            // Handle Clear All logic here, e.g., deleting all logs from Firestore
+            Toast.makeText(context, "Clear All clicked (Not yet implemented)", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    /**
+     * Sets up the RecyclerView with the adapter and layout manager.
+     */
+    private fun setupRecyclerView() {
+        // Initialize the adapter with an empty list
+        logAdapter = NotificationAdapter(mutableListOf())
+
+        // The layout manager is already set in your XML, but we can set it here too
+        binding.recyclerViewSnapshots.apply {
+            adapter = logAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    /**
+     * Fetches notification logs from the Firestore database.
+     */
+    private fun fetchNotifications() {
+        firestore.collection("log") // "log collection" from your description
+            // Order by timestamp to show the newest first
+            .orderBy("timestamp", Query.Direction.DESCENDING)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                // Convert the list of documents to a list of NotificationLog objects
+                val notifications = querySnapshot.documents.mapNotNull { document ->
+                    // 'toObject' requires the no-arg constructor in the data class
+                    document.toObject(NotificationLog::class.java)
                 }
 
-                // Sort by timestamp (newest first)
-                snapshotList.sortByDescending { it.timestamp?.toLongOrNull() }
-
-                adapter.notifyDataSetChanged()
+                // Update the RecyclerView adapter with the new data
+                logAdapter.updateData(notifications)
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Handle error
-                Toast.makeText(requireContext(), "Error loading snapshots: ${error.message}", Toast.LENGTH_LONG).show()
+            .addOnFailureListener { exception ->
+                // Handle the error (e.g., display a Toast or a retry button)
+                Log.e("NotificationFragment", "Error fetching documents: $exception")
+                Toast.makeText(context, "Error fetching notifications.", Toast.LENGTH_SHORT).show()
             }
-        })
     }
 }

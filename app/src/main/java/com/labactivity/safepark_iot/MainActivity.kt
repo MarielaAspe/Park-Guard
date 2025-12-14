@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.snapshotFragment -> {
-                    replaceFragment(SnapshotFragment(), "Intrusion Snapshot")
+                    replaceFragment(SnapshotFragment(), "Notifications")
                     true
                 }
                 else -> false

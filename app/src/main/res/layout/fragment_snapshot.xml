@@ -29,8 +29,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/recyclerViewSnapshots"
         android:layout_width="0dp"
+        android:padding="12dp"
         android:layout_height="0dp"
-        android:background="#F5F5F5"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         />

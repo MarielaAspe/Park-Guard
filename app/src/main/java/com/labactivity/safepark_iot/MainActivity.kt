@@ -41,10 +41,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(DashboardFragment(), "Dashboard")
                     true
                 }
-                R.id.logsFragment -> {
-                    replaceFragment(LogFragment(), "System Logs")
-                    true
-                }
+
                 R.id.snapshotFragment -> {
                     replaceFragment(SnapshotFragment(), "Notifications")
                     true

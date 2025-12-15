@@ -117,7 +117,6 @@
                         android:src="@drawable/ic_flash_on" />
                 </FrameLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/btnDeactivate"
                 android:layout_width="0dp"
@@ -134,6 +133,37 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Deactivate"
+                    android:textColor="#FFFFFF"
+                    android:textStyle="bold"
+                    android:textSize="20sp" />
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="top|end">
+                    <ImageView
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:src="@drawable/ic_power_off" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnAutomatic"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_columnWeight="1"
+                android:layout_columnSpan="2"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:elevation="10dp"
+                android:background="@drawable/card_bg_green"
+                android:padding="12dp">
+                <TextView
+                    android:id="@+id/txtAutomatic"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Set as Automatic"
                     android:textColor="#FFFFFF"
                     android:textStyle="bold"
                     android:textSize="20sp" />
@@ -214,7 +244,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="100dp"
             android:text="LOGOUT"
             android:textColor="@android:color/white"
             android:textSize="18sp"

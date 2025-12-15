@@ -140,7 +140,7 @@ class DashboardFragment : Fragment() {
         val backgroundRes: Int
         val toastMessage: String
         if (irDetected) {
-            mainText = "IR DETECTED"
+            mainText = "INTRUSION DETECTED"
             iconRes = R.drawable.ic_warning_toast
             colorRes = R.color.alert_red
             backgroundRes = R.drawable.bg_red_rounded
@@ -218,8 +218,8 @@ class DashboardFragment : Fragment() {
             2 -> {
                 mainText = "MANUAL: LIGHTS OFF"
                 iconRes = R.drawable.ic_mode_night
-                colorRes = R.color.default_blue
-                backgroundRes = R.drawable.bg_yellow_rounded
+                colorRes = R.color.night_mode
+                backgroundRes = R.drawable.bg_darkblue_rounded
             }
             else -> {
                 mainText = "UNKNOWN MODE"

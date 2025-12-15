@@ -16,4 +16,7 @@
     <color name="success_green">#34C759</color>
     <color name="warning_orange">#FF9500</color>
     <color name="day_mode">#FFB71F</color>
+    <color name="night_mode">#000043</color>
+
+
 </resources>
